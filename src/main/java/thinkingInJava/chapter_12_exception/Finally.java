@@ -13,7 +13,7 @@ package thinkingInJava.chapter_12_exception;
  *      当返回基本类型时：finally中对返回值的修改不会覆盖返回值；
  *
  */
-public class FinallyTest {
+public class Finally {
 
     public static void main(String[] args) {
         System.out.println(test());
