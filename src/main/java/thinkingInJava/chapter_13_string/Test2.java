@@ -4,7 +4,7 @@ package thinkingInJava.chapter_13_string;
  * @author zhaojiatao
  * @date 2018/9/4
  */
-public class StringTest {
+public class Test2 {
 
     public static void main(String[] args) {
 
