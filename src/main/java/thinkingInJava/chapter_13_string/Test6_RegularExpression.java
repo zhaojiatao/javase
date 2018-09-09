@@ -1,7 +1,6 @@
 package thinkingInJava.chapter_13_string;
 
 import org.junit.Test;
-
 import java.util.Arrays;
 
 /**
@@ -39,6 +38,10 @@ public class Test6_RegularExpression {
         System.out.println(str.replaceAll("shrubbery|tree|herring","banana"));
 
     }
+
+
+
+
 
 
 
