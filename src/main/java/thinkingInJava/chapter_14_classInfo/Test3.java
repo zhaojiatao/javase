@@ -10,86 +10,49 @@ import java.util.List;
  * @date 2018/9/11
  *
  * 在类型转换之前先做检查，如果贸然强制转换，可能会抛出ClassCastException异常；
- * 学习使用instance of 和isInstance()进行类型检查
+ * 学习使用instance of 和isInstance()进行类型检查；
+ * 主要区别就是instance of是编译器进行类型检查；
+ * 而 isInstance方法是运行期，动态进行类型检查，可用于反射、泛型中；
  *
  */
+
 public class Test3 {
-    class A{
-        String name;
-        String getName(){
-            return name;
-        }
-    }
-    class B extends A{
-        String name="B";
-        String getName(){
-            return name;
-        }
-    }
-    class C extends A{
-        String name="C";
-        String getName(){
-            return name;
-        }
+    public static boolean DynamicEqual(Object fatherObj,Object sonObj){
+         return fatherObj.getClass().isInstance(sonObj); // pass
+        // return sonObj.getClass().isInstance(fatherObj);
+        // return sonObj instanceof Father; // pass
+        // return sonObj instanceof (fatherObj.getClass()); //error
     }
 
+    public static void main(String[] args){
+        //instance of 编译器类型检查
+        Father father = new Father();
+        Son son = new Son();
 
-    /**
-     * obj instanceof class
-     也就是说这个对象是不是这种类型，
-     1.一个对象是本身类的一个对象
-     2.一个对象是本身类父类（父类的父类）和接口（接口的接口）的一个对象
-     3.所有对象都是Object
-     4.凡是null有关的都是false  null.instanceof(class)
-     */
-    @Test
-    public void test01(){
-        //当new了一个对象，将这个对象的值赋值给一个引用时，需要进行类型检查；
-        //但是这种方法每次均需要用instanceof来检查，很不方便
-        List<A> list=new ArrayList<A>();
-        list.add(new B());
-        list.add(new C());
-        for(A x:list){
-            if(x instanceof B){
-                B bb=(B)x;
-                System.out.println(bb.name);
-            }
-            if(x instanceof C){
-                C cc=(C)x;
-                System.out.println(cc.name);
-            }
-        }
+        System.out.println(son instanceof Son); // true
+        System.out.println(son instanceof Father); // true
+        System.out.println(son instanceof Object); // true
+        System.out.println(null instanceof Object); // false
+        System.out.println();
+
+        //运行时动态类型检查(括号里的是子类)
+        System.out.println(Son.class.isInstance(son)); // true
+        //很明显是错误的，但编译是可以通过的
+        System.out.println(Integer.class.isInstance(son));//false
+        System.out.println(Father.class.isInstance(son)); // true
+        System.out.println(Object.class.isInstance(son)); // true
+        System.out.println(Object.class.isInstance(null)); // false
+        System.out.println();
+
+
+        //different using
+        System.out.println(DynamicEqual(father, son));
     }
-
-    /**
-     * class.inInstance(obj)
-
-     这个对象能不能被转化为这个类
-
-     1.一个对象是本身类的一个对象
-
-     2.一个对象能被转化为本身类所继承类（父类的父类等）和实现的接口（接口的父接口）强转
-
-     3.所有对象都能被Object的强转
-
-     4.凡是null有关的都是false   class.inInstance(null)
-     */
-    @Test
-    public void test02(){
-        List<A> list=new ArrayList<A>();
-        B b=new B();
-        list.add(b);
-        C c=new C();
-        list.add(c);
-        for(A x:list){
-            if(A.class.isInstance(x)){
-                System.out.println(x.getName());
-            }
-        }
-
-    }
-
-
 
 
 }
+
+class Father{}
+
+class Son extends Father{}
+
