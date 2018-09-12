@@ -1,10 +1,5 @@
 package thinkingInJava.chapter_14_classInfo;
 
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author zhaojiatao
  * @date 2018/9/11
