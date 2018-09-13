@@ -337,7 +337,7 @@ public class Test6 {
     //反射方法的其它使用之---通过反射越过泛型检查
     @Test
     public void test06() throws Exception{
-        ArrayList<String> strList = new ArrayList<>();
+        ArrayList<String> strList = new ArrayList<String>();
         strList.add("aaa");
         strList.add("bbb");
 
