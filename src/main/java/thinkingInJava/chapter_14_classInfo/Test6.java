@@ -14,7 +14,8 @@ import java.util.Properties;
  * @author zhaojiatao
  * @date 2018/9/13
  *
- * 参考：https://blog.csdn.net/sinat_38259539/article/details/71799078
+ * 反射的应用场景：https://blog.csdn.net/zolalad/article/details/29370565
+ * 反射的一些常用操作：参考：https://blog.csdn.net/sinat_38259539/article/details/71799078
  *
  */
 class Student {
