@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test6_reflect;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -89,13 +89,12 @@ public class Test6_Introspector {
 
 }
 
-
 class BeanInfoUtil {
 
-    public static void setProperty(UserInfo userInfo,String userName){
+    public static void setProperty(UserInfo userInfo, String userName){
         PropertyDescriptor propDesc= null;
         try {
-            propDesc = new PropertyDescriptor(userName,UserInfo.class);
+            propDesc = new PropertyDescriptor(userName, UserInfo.class);
         } catch (IntrospectionException e) {
             e.printStackTrace();
         }
@@ -110,10 +109,10 @@ class BeanInfoUtil {
         System.out.println("set userName:"+userInfo.getUserName());
     }
 
-    public static void getProperty(UserInfo userInfo,String userName){
+    public static void getProperty(UserInfo userInfo, String userName){
         PropertyDescriptor proDescriptor = null;
         try {
-            proDescriptor = new PropertyDescriptor(userName,UserInfo.class);
+            proDescriptor = new PropertyDescriptor(userName, UserInfo.class);
         } catch (IntrospectionException e) {
             e.printStackTrace();
         }
@@ -129,7 +128,7 @@ class BeanInfoUtil {
         System.out.println("get userName:"+objUserName.toString());
     }
 
-    public static void setPropertyByIntrospector(UserInfo userInfo,String userName){
+    public static void setPropertyByIntrospector(UserInfo userInfo, String userName){
         BeanInfo beanInfo= null;
         try {
             beanInfo = Introspector.getBeanInfo(UserInfo.class);
@@ -155,7 +154,7 @@ class BeanInfoUtil {
         }
     }
 
-    public static void getPropertyByIntrospector(UserInfo userInfo,String userName){
+    public static void getPropertyByIntrospector(UserInfo userInfo, String userName){
         BeanInfo beanInfo= null;
         try {
             beanInfo = Introspector.getBeanInfo(UserInfo.class);
@@ -182,8 +181,6 @@ class BeanInfoUtil {
         }
     }
 }
-
-
 
 class UserInfo {
 

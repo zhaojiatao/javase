@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test5;
 
 /**
  * @author zhaojiatao

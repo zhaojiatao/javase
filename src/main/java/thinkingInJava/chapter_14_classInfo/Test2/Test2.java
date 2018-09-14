@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test2;
 
 
 /**
@@ -51,7 +51,7 @@ public class Test2 {
 
         try{
             //注意，必须使用全限定名
-            c=Class.forName("thinkingInJava.chapter_14_classInfo.FancyToy");
+            c=Class.forName("thinkingInJava.chapter_14_classInfo.Test2.FancyToy");
         }catch (ClassNotFoundException e){
             System.out.println("Can't find Test2");
             System.exit(1);

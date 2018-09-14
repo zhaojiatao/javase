@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test6_reflect;
 
 import org.junit.Test;
 
@@ -97,9 +97,6 @@ class Student {
 
 
 }
-
-
-
 
 public class Test6 {
     /*

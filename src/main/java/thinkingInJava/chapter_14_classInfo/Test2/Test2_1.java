@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test2;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class Test2_1 {
         System.out.println(Initable2.staticNonFinal);
 
         //使用forName方法，就会初始化类
-        Class initable3=Class.forName("thinkingInJava.chapter_14_classInfo.Initable3");
+        Class initable3=Class.forName("thinkingInJava.chapter_14_classInfo.Test2.Initable3");
         System.out.println(Initable3.staticNonFinal);
 
 

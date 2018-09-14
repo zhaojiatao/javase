@@ -1,4 +1,4 @@
-package thinkingInJava.chapter_14_classInfo;
+package thinkingInJava.chapter_14_classInfo.Test4;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +61,7 @@ class Part{
 class Filter extends Part{}
 
 class FuelFilter extends Filter{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<FuelFilter>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<FuelFilter> {
         @Override
         public FuelFilter create() {
             return new FuelFilter();
@@ -70,7 +70,7 @@ class FuelFilter extends Filter{
 }
 
 class AirFilter extends Filter{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<AirFilter>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<AirFilter> {
         @Override
         public AirFilter create() {
             return new AirFilter();
@@ -79,7 +79,7 @@ class AirFilter extends Filter{
 }
 
 class CabinAirFilter extends Filter{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<CabinAirFilter>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<CabinAirFilter> {
         @Override
         public CabinAirFilter create() {
             return new CabinAirFilter();
@@ -88,7 +88,7 @@ class CabinAirFilter extends Filter{
 }
 
 class OilFilter extends Filter{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<OilFilter>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<OilFilter> {
         @Override
         public OilFilter create() {
             return new OilFilter();
@@ -102,7 +102,7 @@ class Belt extends Part{
 }
 
 class FanBelt extends Belt{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<FanBelt>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<FanBelt> {
         @Override
         public FanBelt create() {
             return new FanBelt();
@@ -111,7 +111,7 @@ class FanBelt extends Belt{
 }
 
 class GeneratorBelt extends Belt{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<GeneratorBelt>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<GeneratorBelt> {
         @Override
         public GeneratorBelt create() {
             return new GeneratorBelt();
@@ -120,7 +120,7 @@ class GeneratorBelt extends Belt{
 }
 
 class PowerSteeringBelt extends Belt{
-    public static class Factory implements thinkingInJava.chapter_14_classInfo.Factory<PowerSteeringBelt>{
+    public static class Factory implements thinkingInJava.chapter_14_classInfo.Test4.Factory<PowerSteeringBelt> {
         @Override
         public PowerSteeringBelt create() {
             return new PowerSteeringBelt();
