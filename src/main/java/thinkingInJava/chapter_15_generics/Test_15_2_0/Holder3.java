@@ -20,11 +20,13 @@ public class Holder3<T> {
     }
 
     public static void main(String[] args) {
-        Holder3<Automobile> h3=new Holder3<Automobile>(new Automobile());
+        Holder3<Automobile> h3=new Holder3<>(new Automobile());
         Automobile a=h3.getA();
     }
 
 }
+
+
 
 
 class Automobile{}
