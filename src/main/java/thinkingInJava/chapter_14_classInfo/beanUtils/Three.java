@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class Three{
     public String c1;
     public Integer c2;

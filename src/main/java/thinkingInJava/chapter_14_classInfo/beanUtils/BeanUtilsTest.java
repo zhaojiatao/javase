@@ -37,6 +37,8 @@ public class BeanUtilsTest {
         three.setC4(new java.util.Date());
         three.setC5(new java.sql.Date(2018,10,25));
         one.setField6(three);
+        one.setField7(18);
+
         System.out.println(one.toString());
         System.out.println("=============");
         Two two1=new Two();
