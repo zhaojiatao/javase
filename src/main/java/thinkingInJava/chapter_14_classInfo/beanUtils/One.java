@@ -22,5 +22,7 @@ public class One{
     public Three field6;
     //field7的类型one中是基本类型，two中是包装类型
     public int field7;
+    // one和two的字段名一样
+    public String field8;
 
 }

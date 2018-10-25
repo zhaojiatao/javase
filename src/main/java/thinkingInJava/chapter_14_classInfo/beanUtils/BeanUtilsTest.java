@@ -17,7 +17,9 @@ import java.util.List;
  * @date 2018/10/25
  * org.apache.commons.beanutils.PropertyUtilsBean这个类主要就是通过java的反射机制来获得bean属性，只能够copy拥有public修饰符的类和方法。
  * spring的copyProperties使用了暴力反射
- * thinkingInJava.chapter_14_classInfo.beanUtils.BeanUtils.copyProperties也是使用了暴力反射
+ * thinkingInJava.chapter_14_classInfo.beanUtils.BeanUtils.copyProperties也是使用了暴力反射;
+ *
+ * 如果字段名一样，但是字段类型不一样，spirng的方式和我手写的实现会忽略，而apache的方式会抱错
  */
 
 public class BeanUtilsTest {
@@ -38,9 +40,10 @@ public class BeanUtilsTest {
         three.setC5(new java.sql.Date(2018,10,25));
         one.setField6(three);
         one.setField7(18);
+        one.setField8("str");
 
         System.out.println(one.toString());
-        System.out.println("=============");
+        /*System.out.println("=============");
         Two two1=new Two();
         org.apache.commons.beanutils.BeanUtils.copyProperties(two1,one);
         System.out.println(one.toString());
@@ -49,7 +52,7 @@ public class BeanUtilsTest {
         Two two2=new Two();
         org.apache.commons.beanutils.PropertyUtils.copyProperties(two2,one);
         System.out.println(one.toString());
-        System.out.println(two2.toString());
+        System.out.println(two2.toString());*/
         System.out.println("=============");
         Two two3=new Two();
         org.springframework.beans.BeanUtils.copyProperties(one,two3);

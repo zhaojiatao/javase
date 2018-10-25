@@ -20,6 +20,8 @@ public class Two{
     public Integer field5;
     public Three field6;
     public Integer field7;
+    // one和two的字段名一样
+    public int field8;
 
 
 }
