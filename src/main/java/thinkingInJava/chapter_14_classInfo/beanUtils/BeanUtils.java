@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -73,6 +74,7 @@ public class BeanUtils {
                 for (Field field : dest.getClass().getDeclaredFields()) {
                     if (field.getName().equals(origField.getName())) {
                         try {
+
                             //如果目标字段和value对象是类实现关系
                             //数据源字段不管是基本类型还是包装类型，在value = origField.get(orig)时都会转为包装类，所以当目标字段是包装类时，走第一个判断
                             if (field.getType().isInstance(value)) {
@@ -80,10 +82,17 @@ public class BeanUtils {
                                 field.set(dest, value);
                             } else if (field.getType().isPrimitive()
                                     && Objects.equals(myPrimitiveTypeToWrapperMap.get(field.getType().getName()),value.getClass())) {
+                                if( Modifier.isFinal(field.getModifiers())){
+                                    //如果字段是final的
+                                    continue;
+                                }
                                 //如果目标字段是基本类型，且数据源字段是目标字段的包装类时
                                 field.setAccessible(true);
                                 field.set(dest, value);
                             }
+
+
+
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         }

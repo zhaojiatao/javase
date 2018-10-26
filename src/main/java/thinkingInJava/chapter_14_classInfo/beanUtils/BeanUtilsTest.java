@@ -53,11 +53,11 @@ public class BeanUtilsTest {
         org.apache.commons.beanutils.PropertyUtils.copyProperties(two2,one);
         System.out.println(one.toString());
         System.out.println(two2.toString());*/
-        System.out.println("=============");
+        /*System.out.println("=============");
         Two two3=new Two();
         org.springframework.beans.BeanUtils.copyProperties(one,two3);
         System.out.println(one.toString());
-        System.out.println(two3.toString());
+        System.out.println(two3.toString());*/
         System.out.println("=============");
         Two two4=thinkingInJava.chapter_14_classInfo.beanUtils.BeanUtils.copyProperties(one,Two.class);
         System.out.println(one.toString());

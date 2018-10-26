@@ -25,4 +25,6 @@ public class One{
     // one和two的字段名一样
     public String field8;
 
+    private static final long field9=-343434343434L;
+
 }

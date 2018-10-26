@@ -23,5 +23,7 @@ public class Two{
     // one和two的字段名一样
     public int field8;
 
+    private static final long field9=-676767676767L;
+
 
 }
