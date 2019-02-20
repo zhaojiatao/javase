@@ -1,19 +1,19 @@
-package pattern.builderpattern;
+package pattern.builder;
 
 /**
  * @author zhaojiatao
  * @date 2019/2/18
- * 可口可乐
+ * 百事可乐
  */
-public class Coke extends ColdDrink {
+public class Pepsi extends ColdDrink {
 
     @Override
     public float price() {
-        return 30.0f;
+        return 35.0f;
     }
 
     @Override
     public String name() {
-        return "Coke";
+        return "Pepsi";
     }
 }

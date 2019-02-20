@@ -1,4 +1,4 @@
-package pattern.builderpattern;
+package pattern.builder;
 
 /**
  * @author zhaojiatao
