@@ -43,21 +43,31 @@ class HandlerThreadFactory implements ThreadFactory{
 
 class CaptureUncaughtException{
     public static void main(String[] args) {
-        //创建ExectorService的时候指定自定义的线程工厂
-        ExecutorService exec= Executors.newCachedThreadPool(
-                new HandlerThreadFactory()
-        );
-        exec.execute(new ExceptionThread2());
+
+        try{
+            //创建ExectorService的时候指定自定义的线程工厂
+            ExecutorService exec= Executors.newCachedThreadPool(
+                    new HandlerThreadFactory()
+            );
+            exec.execute(new ExceptionThread2());
+        }catch (Exception e){
+            System.out.println("主线程捕获了异常："+e.getMessage());
+        }
     }
 }
 
 class SettingDefaultHandler{
     public static void main(String[] args) {
-        Thread.setDefaultUncaughtExceptionHandler(
+        /*Thread.setDefaultUncaughtExceptionHandler(
                 new MyUncaughtExceptionHandler()
-        );
-        ExecutorService exec=Executors.newCachedThreadPool();
-        exec.execute(new ExceptionThread());
+        );*/
+        try{
+            ExecutorService exec=Executors.newCachedThreadPool();
+            exec.execute(new ExceptionThread());
+        }catch (Exception e){
+            System.out.println("主线程捕获了异常："+e.getMessage());
+        }
+
     }
 }
 

@@ -10,15 +10,16 @@ import java.util.concurrent.Executors;
 public class ExceptionThread implements Runnable{
     @Override
     public void run() {
-        throw new RuntimeException();
+            throw new RuntimeException();
     }
 
     public static void main(String[] args) {
         try{
             ExecutorService exec= Executors.newCachedThreadPool();
-            exec.execute(new ExceptionThread());
+            //exec.execute(new ExceptionThread());
+            exec.submit(Executors.callable(new ExceptionThread())).get();
         }catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println("主线程发现异常:"+e.toString());
         }
     }
 }
