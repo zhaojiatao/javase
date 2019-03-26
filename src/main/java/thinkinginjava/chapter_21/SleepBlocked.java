@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 本事例证明：
@@ -99,3 +101,79 @@ class Interrupting{
 
 
 }
+
+class BlockedMutex{
+        private Lock lock=new ReentrantLock();
+
+    public BlockedMutex() {
+        lock.lock();
+    }
+
+
+    public void f(){
+        try {
+            //此锁阻塞可以被中断
+            lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+
+class Blocked2 implements Runnable{
+    BlockedMutex blocked=new BlockedMutex();
+    @Override
+    public void run() {
+        System.out.println("waiting for f() in BlockedMutex");
+        blocked.f();
+        System.out.println("broken out of blocked call");
+    }
+}
+
+
+class Interrupting2{
+    public static void main(String[] args) {
+        //new Blocked2的时候，就会把Blocked2对象锁住
+        Thread t=new Thread(new Blocked2());
+        //t.start()方法在执行blocked.f();的时候会因为blocked对象的锁被占用，而产生锁等待阻塞。
+        t.start();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //最后这个中断的方法会中断锁阻塞
+        t.interrupt();
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
