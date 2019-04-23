@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author zhaojiatao
@@ -17,14 +19,19 @@ public class CallableDemo {
         try{
 
             ArrayList<Future<String>> results=new ArrayList<>();
-            for(int i=0;i<10;i++){
+            for(int i=0;i<15;i++){
                 Future<String> future=exec.submit(new TaskWithResult(i));
                 System.out.println(future.isDone());
                 results.add(future);
             }
 
             for(Future<String> fs:results){
-                System.out.println(fs.get());
+                try {
+                    System.out.println(fs.get(15, TimeUnit.SECONDS));
+                }catch(Exception e){
+                    System.out.println(fs.toString()+e.toString());
+                }
+
             }
         }catch (Exception e){
             System.out.println("主线程执行发现异常："+e.getMessage());

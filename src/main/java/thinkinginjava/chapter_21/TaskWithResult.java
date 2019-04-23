@@ -12,10 +12,18 @@ public class TaskWithResult implements Callable<String>{
         this.id=id;
     }
     public String call() throws InterruptedException {
-        if(id==8){
-            Thread.sleep(13000);
-            System.out.println(Thread.currentThread().toString()+"异常");
-            throw new RuntimeException(Thread.currentThread().toString()+"异常");
+        if(id==4){
+            System.out.println(Thread.currentThread().toString()+"开始睡眠");
+            Thread.sleep(22000);
+            System.out.println(Thread.currentThread().toString()+"醒来");
+            //System.out.println(Thread.currentThread().toString()+"异常");
+            //throw new RuntimeException(Thread.currentThread().toString()+"异常");
+        }else if(id==8){
+            System.out.println(Thread.currentThread().toString()+"开始睡眠");
+            Thread.sleep(30000);
+            System.out.println(Thread.currentThread().toString()+"醒来");
+            //System.out.println(Thread.currentThread().toString()+"异常");
+            //throw new RuntimeException(Thread.currentThread().toString()+"异常");
         }else{
             Thread.sleep(1000*id);
         }

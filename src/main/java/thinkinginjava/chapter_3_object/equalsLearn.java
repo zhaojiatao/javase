@@ -55,6 +55,8 @@ public class equalsLearn {
         System.out.println(str3.toString()==str4.toString());//false 比较内存地址
         System.out.println(str3.toString().equals(str4.toString()));//true 使用String对象重写的equals比较
 
+        System.out.println(111111);
+
     }
 
 

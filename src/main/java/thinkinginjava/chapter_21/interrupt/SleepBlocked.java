@@ -1,4 +1,4 @@
-package thinkinginjava.chapter_21;
+package thinkinginjava.chapter_21.interrupt;
 
 import java.io.IOException;
 import java.io.InputStream;
