@@ -12,10 +12,11 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 本事例证明：
  * sleep状态下的阻塞可以中断；而i/o阻塞和synchronize锁等待阻塞无法中断。
+ *
  * @author zhaojiatao
  * @date 2019/3/25
  */
-public class SleepBlocked implements Runnable{
+public class SleepBlocked implements Runnable {
     @Override
     public void run() {
         try {
@@ -28,11 +29,13 @@ public class SleepBlocked implements Runnable{
     }
 }
 
-class IOBlocked implements Runnable{
+class IOBlocked implements Runnable {
     private InputStream in;
-    public IOBlocked(InputStream is){
-        in=is;
+
+    public IOBlocked(InputStream is) {
+        in = is;
     }
+
     @Override
     public void run() {
         System.out.println("Waiting for read");
@@ -40,9 +43,9 @@ class IOBlocked implements Runnable{
             //坚挺控制台输入，阻塞
             in.read();
         } catch (IOException e) {
-            if(Thread.currentThread().isInterrupted()){
+            if (Thread.currentThread().isInterrupted()) {
                 System.out.println("Interrupted from blocked I/O");
-            }else{
+            } else {
                 throw new RuntimeException(e);
             }
         }
@@ -51,18 +54,17 @@ class IOBlocked implements Runnable{
     }
 }
 
+class SynchronizedBlocked implements Runnable {
 
-class SynchronizedBlocked implements Runnable{
-
-    public synchronized void f(){
-            while (true){
-                Thread.yield();
-            }
+    public synchronized void f() {
+        while (true) {
+            Thread.yield();
+        }
     }
 
     public SynchronizedBlocked() {
         //在new线程对象的时候就会执行下面的方法，启动一个线程并执行f()方法，占用本SynchronizedBlocked对象的锁
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 f();
@@ -79,18 +81,19 @@ class SynchronizedBlocked implements Runnable{
     }
 }
 
-class Interrupting{
-    private static ExecutorService exec=
+class Interrupting {
+    private static ExecutorService exec =
             Executors.newCachedThreadPool();
-    static void test(Runnable r) throws InterruptedException{
-        Future<?> f=exec.submit(r);
+
+    static void test(Runnable r) throws InterruptedException {
+        Future<?> f = exec.submit(r);
         TimeUnit.MILLISECONDS.sleep(100);
-        System.out.println("Interrupting "+r.getClass().getName());
+        System.out.println("Interrupting " + r.getClass().getName());
         f.cancel(true);
-        System.out.println("Interrupt sent to "+r.getClass().getName());
+        System.out.println("Interrupt sent to " + r.getClass().getName());
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         test(new SleepBlocked());
         test(new IOBlocked(System.in));
         test(new SynchronizedBlocked());
@@ -99,20 +102,23 @@ class Interrupting{
         System.exit(0);
     }
 
-
 }
 
-class BlockedMutex{
-        private Lock lock=new ReentrantLock();
+/**
+ * thread.interrupt()方法可以中断由于ReentrantLock()方法lock而导致的互斥阻塞
+ */
 
+class BlockedMutex {
+    private Lock lock = new ReentrantLock();
+
+    //通过构造方法获取到资深的lock，并且从不释放这个锁
     public BlockedMutex() {
         lock.lock();
     }
 
-
-    public void f(){
+    public void f() {
         try {
-            //此锁阻塞可以被中断
+            //用此种方式上锁，如果发生阻塞可以被中段。由于当前对象被锁住，故此处需要待lock释放当前对象才能上锁，故发生锁等待阻塞。
             lock.lockInterruptibly();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -121,9 +127,11 @@ class BlockedMutex{
 
 }
 
+class Blocked2 implements Runnable {
 
-class Blocked2 implements Runnable{
-    BlockedMutex blocked=new BlockedMutex();
+    //使用构造方法初始化对象时就上锁了
+    BlockedMutex blocked = new BlockedMutex();
+
     @Override
     public void run() {
         System.out.println("waiting for f() in BlockedMutex");
@@ -132,11 +140,10 @@ class Blocked2 implements Runnable{
     }
 }
 
-
-class Interrupting2{
+class Interrupting2 {
     public static void main(String[] args) {
         //new Blocked2的时候，就会把Blocked2对象锁住
-        Thread t=new Thread(new Blocked2());
+        Thread t = new Thread(new Blocked2());
         //t.start()方法在执行blocked.f();的时候会因为blocked对象的锁被占用，而产生锁等待阻塞。
         t.start();
         try {
@@ -147,7 +154,6 @@ class Interrupting2{
         //最后这个中断的方法会中断锁阻塞
         t.interrupt();
     }
-
 
 }
 
