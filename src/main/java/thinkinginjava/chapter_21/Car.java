@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  *    wait方法会释放锁，sleep方法不会释放锁。
  *    wait()和notifyAll()必须在同步方法中使用。
  *    在调用wait的时候，一般都会在外面用while来包裹。
+ *    wait方法会让线程挂起，也是一种阻塞。所以在调用wait前，如果执行了shundownnow方法，再执行wait的话，就会抛出中断异常。
  */
 public class Car {
 
