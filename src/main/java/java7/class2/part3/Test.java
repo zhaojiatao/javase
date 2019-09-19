@@ -45,6 +45,26 @@ public class Test {
         return (T)Proxy.newProxyInstance(cl,new Class<?>[]{intf},handler);
     }
 
+    /**
+     *
+     * @param object
+     * @param handler
+     * @return 并没有对创建的代理对象进行类型转换，而是直接返回给调用者。这是为了让调用者可以灵活操作，允许它们根据需要转换成不同的接口。
+     * 比如，如果传入的是String类的对象实例，则调用者可以将其转换成String类所实现的Comparable或是CharSequence接口。
+     */
+    public static Object proxyAll(final Object object,InvocationHandler handler){
+        ClassLoader cl=object.getClass().getClassLoader();
+        Class<?>[] interfaces= object.getClass().getInterfaces();
+        return Proxy.newProxyInstance(cl,interfaces,handler);
+    }
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
         useProxy();
     }
