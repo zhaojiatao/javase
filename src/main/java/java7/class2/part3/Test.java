@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhaojiatao
@@ -58,15 +59,39 @@ public class Test {
         return Proxy.newProxyInstance(cl,interfaces,handler);
     }
 
+    /**
+     * 在同时代理多个接口时，这些接口在代理类创建时的排序非常重要，即使是同样的接口，不同的排序所产生的代理类也是不同的。
+     * 强调接口的排序顺序的一个重要原因是，这个顺序会对接口中声明类型相同的方法的选择产生影响。
+     * 如果多个接口中都存在声明类型相同的方法，那么在调用方法时，排列顺序中最先出现的接口中的方法会被选择。
+     * @throws Throwable
+     */
+    public static void proxyMultipleInterfaces() throws Throwable{
+        List<String> receiverObj=new ArrayList<String>();
+        ClassLoader cl=new Test().getClass().getClassLoader();
+        LoggingInvocationHandler handler=new LoggingInvocationHandler(receiverObj);
+        //首先获取到代理类，得到代理类实现了被代理的接口
+        Class<?> proxyClass=Proxy.getProxyClass(cl,new Class<?>[]{List.class, Set.class});
+//        Class<?> proxyClass=Proxy.getProxyClass(cl,new Class<?>[]{ Set.class,List.class});
+        Object proxy=proxyClass.getConstructor(new Class[]{InvocationHandler.class}).newInstance(new Object[]{handler});
+
+
+
+        List list=(List) proxy;
+        list.add("hello");
+
+        Set set=(Set)proxy;
+        set.add("World");
+
+    }
 
 
 
 
 
 
-
-    public static void main(String[] args) {
-        useProxy();
+    public static void main(String[] args) throws Throwable {
+//        useProxy();
+        proxyMultipleInterfaces();
     }
 
 
