@@ -1,4 +1,4 @@
-package thinkinginjava.chapter_21;
+package thinkinginjava.chapter_21.part_21_2_6;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -6,6 +6,10 @@ import java.util.concurrent.Executors;
 /**
  * @author zhaojiatao
  * @date 2019/1/13
+ *
+ * 优先级低的程序仅仅是执行的频率较低，而不是不执行
+ * 试图操作线程的优先级通常是一种错误
+ *
  */
 public class SimplePriorities implements Runnable{
 

@@ -19,8 +19,7 @@ public class Liftoff implements Runnable{
         this.countDown=countDown;
     }
     public String status(){
-        return "#"+id+"("+
-                (countDown>0?countDown:"Liftoff!")+"),";
+        return "#"+id+"("+ (countDown>0?countDown:"Liftoff!")+"),";
     }
     public void run(){
         while(countDown-->0){
@@ -28,5 +27,15 @@ public class Liftoff implements Runnable{
             System.out.print(status());
             Thread.yield();
         }
+    }
+}
+
+
+
+class MainThread {
+
+    public static void main(String[] args) {
+        Liftoff launch=new Liftoff();
+        launch.run();
     }
 }
