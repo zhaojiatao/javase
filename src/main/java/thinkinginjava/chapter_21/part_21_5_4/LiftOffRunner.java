@@ -1,6 +1,6 @@
 package thinkinginjava.chapter_21.part_21_5_4;
 
-import thinkinginjava.chapter_21.Liftoff;
+import thinkinginjava.chapter_21.part_21_2_1.Liftoff;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

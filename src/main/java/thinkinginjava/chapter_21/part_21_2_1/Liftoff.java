@@ -1,8 +1,12 @@
-package thinkinginjava.chapter_21;
+package thinkinginjava.chapter_21.part_21_2_1;
 
 /**
  * @author zhaojiatao
  * @date 2019/1/12
+ *
+ * 定义任务
+ * 显示发射之前的倒计时
+ *
  */
 public class Liftoff implements Runnable{
     protected int countDown=10;//default
