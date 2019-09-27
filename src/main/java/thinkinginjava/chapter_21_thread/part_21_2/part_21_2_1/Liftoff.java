@@ -23,7 +23,7 @@ public class Liftoff implements Runnable{
     }
     public void run(){
         while(countDown-->0){
-            System.out.println(Thread.currentThread().getName());
+            System.out.println("Thread.currentThread().getName():"+Thread.currentThread().getName());
             System.out.print(status());
             Thread.yield();
         }
@@ -39,3 +39,4 @@ class MainThread {
         launch.run();
     }
 }
+
