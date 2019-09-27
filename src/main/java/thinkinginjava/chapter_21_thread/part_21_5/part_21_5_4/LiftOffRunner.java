@@ -46,8 +46,9 @@ public class LiftOffRunner implements Runnable{
         try{
             while (!Thread.interrupted()){
                 //将每个LiftOff对象从BlockingQueue中推出并直接运行。注意这里没有启动新线程，而是直接调用run方法了。
-                //
+                //队列里面有可用的元素就取出，否则就阻塞
                 Liftoff rocket=rockets.take();
+                //执行任务
                 rocket.run();
             }
         }catch (InterruptedException e){
@@ -81,6 +82,7 @@ class TestBlockingQueues{
         LiftOffRunner runner=new LiftOffRunner(queue);
         Thread t=new Thread(runner);
         t.start();
+        //放入队列五个待执行的任务
         for (int i=0;i<5;i++){
             runner.add(new Liftoff(5));
         }
