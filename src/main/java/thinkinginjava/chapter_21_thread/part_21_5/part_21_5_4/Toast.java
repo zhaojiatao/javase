@@ -97,12 +97,18 @@ class Toaster implements Runnable {
 }
 
 /**
+ * 涂抹黄油任务
  *
  */
 class Butterer implements Runnable {
     private ToastQueue dryQueue;
     private ToastQueue butteredQueue;
 
+    /**
+     * 初始化涂抹黄油任务的时候就会连带初始化两个空队列，一个是装在没涂抹过黄油的吐司队列dryQueue。一个是用来装在涂抹过黄油的队列butteredQueue
+     * @param dryQueue
+     * @param butteredQueue
+     */
     public Butterer(ToastQueue dryQueue, ToastQueue butteredQueue) {
         this.dryQueue = dryQueue;
         this.butteredQueue = butteredQueue;
@@ -113,9 +119,12 @@ class Butterer implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 //Block until next piece of toast is available;
+                //涂抹黄油的任务开启后，会直接从dryQueue里取吐司，如果没有未涂抹过黄油的吐司的话，会一直等待，即当前线程会阻塞，直到有可用的吐司。
                 Toast t = dryQueue.take();
+                //从dryQueue取到吐司后执行涂抹黄油的方法。
                 t.butter();
                 System.out.println(t);
+                //将涂抹好黄油的吐司放进队列中，供涂抹果酱的任务使用。
                 butteredQueue.put(t);
             }
         } catch (InterruptedException e) {
@@ -125,11 +134,19 @@ class Butterer implements Runnable {
     }
 }
 
+/**
+ * 涂抹果酱任务
+ */
 class Jammer implements Runnable {
 
     private ToastQueue butteredQueue;
     private ToastQueue finishedQueue;
 
+    /**
+     * 初始化时会初始化空的butteredQueue涂抹过黄油的队列，以从中取吐司来涂抹果酱。一个是finishedQueue用来存放涂抹过果酱的吐司。
+     * @param butteredQueue
+     * @param finishedQueue
+     */
     public Jammer(ToastQueue butteredQueue, ToastQueue finishedQueue) {
         this.butteredQueue = butteredQueue;
         this.finishedQueue = finishedQueue;
@@ -140,9 +157,12 @@ class Jammer implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 //Block until next piece of toast is available;
+                //从butteredQueue中取涂抹过黄油的吐司，没有会阻塞
                 Toast t = butteredQueue.take();
+                //涂抹果酱
                 t.jam();
                 System.out.println(t);
+                //将涂抹好果酱的吐司放入成品吐司队列中，供人吃。
                 finishedQueue.put(t);
             }
         } catch (InterruptedException e) {
@@ -153,13 +173,18 @@ class Jammer implements Runnable {
 }
 
 /**
- * 吃吐司
+ * 吃吐司任务
  */
 class Eater implements Runnable {
+
 
     private ToastQueue finishedQueue;
     private int counter = 0;
 
+    /**
+     * 初始化时会初始化成品吐司队列
+     * @param finishedQueue
+     */
     public Eater(ToastQueue finishedQueue) {
         this.finishedQueue = finishedQueue;
     }
@@ -169,6 +194,7 @@ class Eater implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 //Block until next piece of toast is available;
+                // 从成品吐司中取涂抹完果酱的吐司。没有则阻塞，直到取到。
                 Toast t = finishedQueue.take();
 
                 if (t.getId() != counter++ ||
@@ -176,6 +202,7 @@ class Eater implements Runnable {
                     System.out.println(">>>> Error: " + t);
                     System.exit(1);
                 } else {
+                    //吃掉吐司
                     System.out.println("Chomp! " + t);
                 }
 
