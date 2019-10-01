@@ -145,8 +145,10 @@ class DeadlockingDiningPhilosophers{
     }
 }
 
-
-
+/**
+ * 防止死锁的解决方案：破坏循环等待，因为每个哲学家以前都是先等待右侧的筷子，再等待左侧的筷子，这就是一种循环等待。
+ * 然而，如果最后一个哲学家被初始化成先拿左边的筷子，再拿右边的筷子，那么这个哲学家将永远不会产生循环等待。
+ */
  class FixedDiningPhilosophers{
     public static void main(String[] args) throws Exception {
         int ponder=5;
