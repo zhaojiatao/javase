@@ -1,4 +1,4 @@
-package thinkinginjava.chapter_19_enum;
+package thinkinginjava.chapter_19_enum.part_19_1;
 
 enum Shrubbery{GROUND,CRAWLING,HANGING}
 
