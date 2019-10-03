@@ -7,6 +7,11 @@ import java.util.concurrent.ThreadFactory;
 /**
  * @author zhaojiatao
  * @date 2019/1/19
+ *
+ * 1、自定义一个线程异常处理器MyUncaughtExceptionHandler实现了Thread.UncaughtExceptionHandler
+ * 2、为了使用MyUncaughtExceptionHandler我们创建一个新类型的ThreadFactory，它将在每个新创建的Thread对象上附着一个Thread.UncaughtExceptionHandler
+ * 3、创建ExectorService的时候指定自定义的线程工厂HandlerThreadFactory
+ *
  */
 public class ExceptionThread2 implements Runnable {
     @Override
@@ -20,14 +25,23 @@ public class ExceptionThread2 implements Runnable {
 
 /**
  * 自定义一个线程异常处理器
+ * UncaughtExceptionHandler是javaSE5中的新接口，它允许你在每个Thread对象上都附着一个异常处理器
  */
 class MyUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler{
+    /**
+     * 会在线程因未捕获的异常而临近死亡时被调用
+     * @param t
+     * @param e
+     */
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         System.out.println("caught "+e);
     }
 }
 
+/**
+ * 为了使用MyUncaughtExceptionHandler我们创建一个新类型的ThreadFactory，它将在每个新创建的Thread对象上附着一个Thread.UncaughtExceptionHandler
+ */
 class HandlerThreadFactory implements ThreadFactory{
     @Override
     public Thread newThread(Runnable r) {
@@ -45,7 +59,7 @@ class CaptureUncaughtException{
     public static void main(String[] args) {
 
         try{
-            //创建ExectorService的时候指定自定义的线程工厂
+            //创建ExectorService的时候指定自定义的线程工厂HandlerThreadFactory
             ExecutorService exec= Executors.newCachedThreadPool(
                     new HandlerThreadFactory()
             );
