@@ -1,5 +1,7 @@
 package thinkinginjava.chapter_19_enum.part_19_7;
 
+import thinkinginjava.chapter_19_enum.part_19_6.Enums;
+
 /**
  * @author zhaojiatao
  * @date 2019-10-06
@@ -40,3 +42,56 @@ class TypeOfFood{
 
     }
 }
+
+/**
+ * 枚举的枚举
+ */
+enum Course{
+    APPETIZER(Food.Appetizer.class),
+    MAINCOURSE(Food.MainCourse.class),
+    DESSERT(Food.Dessert.class),
+    ;
+    private Food[] values;
+
+    Course(Class<? extends Food> kind) {
+        this.values = kind.getEnumConstants();
+    }
+
+    public Food randomSelection(){
+        return Enums.random(values);
+    }
+}
+
+class Meal{
+    public static void main(String[] args) {
+        for (int i = 0; i < 3; i++) {
+            for (Course course:Course.values()){
+                Food food=course.randomSelection();
+                System.out.println(food);
+            }
+            System.out.println("---------");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
