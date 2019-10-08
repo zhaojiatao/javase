@@ -11,7 +11,10 @@ enum AlarmPoints {
     classroom1, classroom2, classroom3, classroom4, classroom5, classroom6
 }
 
-
+/**
+ * EnumMap 是一种 特殊的 Map ,要求其中的键(key)必须来自 enum,EnumMap 内部用数组实现,因此 查找速度非常快,
+ * 下面的实例使用enum实例调用put()方法,其他的使用和普通的Map类似.下面这个例子使用命令设计模式的用法使用 EnumMap
+ */
 public class TestEnumMap {
     public static void main(String[] args) {
         EnumMap<AlarmPoints, Command> en = new EnumMap<>(AlarmPoints.class);
