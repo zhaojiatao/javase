@@ -10,6 +10,11 @@ import java.util.concurrent.TimeUnit;
  * @author zhaojiatao
  * @date 2019-10-09
  * 使用CountDownLatch完成异步转同步
+ * 步骤：
+ * 1、创建一个CountDownLatch类对象latch并将size赋初值，如100
+ * 2、通过构造方法将CountDownLatch传入将要等待的任务，并开启任务。在其上执行latch.await()进入阻塞，直到latch的size为零。
+ * 3、通过构造方法将CountDownLatch传入将要耗时的被等待的任务，并开启任务。任务执行完毕后finally方法中
+ * 执行latch.countDown()将size减一。
  */
 
 /**
