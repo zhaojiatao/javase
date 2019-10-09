@@ -15,7 +15,7 @@ public class EnumClass{
             //xx.ordinal()方法表示每个enum实例在声明时的次序，从0开始
             System.out.println(s+" ordinal: "+s.ordinal());
             //枚举本身是由顺序的，此处的compareTo方法就是比较当前枚举和目标枚举CRAWLING的顺序先后，最左边的次序最小从0开始；
-            //左边的序号小于右边的，则返回-1，相同返回0，大于返回1
+            //左边(前面)的序号小于右边的，则返回-1，相同返回0，大于返回1
             System.out.println(s.compareTo(Shrubbery.CRAWLING));
             //比较是否是一个枚举
             System.out.println(s.equals(Shrubbery.CRAWLING));
