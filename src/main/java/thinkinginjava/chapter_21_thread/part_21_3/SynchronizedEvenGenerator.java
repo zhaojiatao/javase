@@ -1,5 +1,7 @@
 package thinkinginjava.chapter_21_thread.part_21_3;
 
+import thinkinginjava.chapter_21_thread.part_21_3.part_21_3_1.EvenChecker;
+
 /**
  * @author zhaojiatao
  * @date 2019/1/20
