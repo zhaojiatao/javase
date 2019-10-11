@@ -1,4 +1,4 @@
-package thinkinginjava.chapter_21_thread.part_21_3.part_21_3_1;
+package thinkinginjava.chapter_21_thread.part_21_3;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,7 +50,7 @@ public class EvenChecker implements Runnable {
  * 为了将EvenChecker与我们要试验的各种类型的生成器解耦，我们将创建一个名为IntGenerator的抽象类。
  * 它包含EvenChecker必须了解的必不可少的方法：即一个next()方法，和一个可以执行撤销的方法，和一个可以执行撤销的方法。
  */
-abstract class IntGenerator {
+ abstract class IntGenerator {
     /**
      * 为了保证可视性，此处使用volatile关键字
      */

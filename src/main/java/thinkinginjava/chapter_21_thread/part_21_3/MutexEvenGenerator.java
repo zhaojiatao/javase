@@ -1,7 +1,5 @@
 package thinkinginjava.chapter_21_thread.part_21_3;
 
-import thinkinginjava.chapter_21_thread.part_21_3.part_21_3_1.EvenChecker;
-
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
