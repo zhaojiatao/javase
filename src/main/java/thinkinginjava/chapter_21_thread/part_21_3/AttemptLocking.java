@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author zhaojiatao
  * @date 2019/1/20
+ * 一般只有在特殊情况才会使用Lock对象，
+ * 例如，用synchronized关键字不能尝试着获取锁且最终获取锁会失败，或者尝试着获取锁一段时间，然后放弃它，要实现这些，你必须使用concurrent类库
  */
 public class AttemptLocking {
     private ReentrantLock lock=new ReentrantLock();
