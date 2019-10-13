@@ -16,6 +16,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2019/1/22
  *
  * 这个类主要用来证明：用同步代码块的方式要比同步方法更加快。
+ * 同步代码块：
+ * 防止多个线程同时访问方法内部的部分代码而不是防止访问整个方法
+ * 在进入同步代码块之前，必须拿到syncObject上的锁
+ * 优点：同步代码块和同步方法相比可以提供多任务访问对象的时间性能
  *
  */
 public class Pair {
