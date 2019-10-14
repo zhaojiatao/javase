@@ -54,8 +54,14 @@ class IOBlocked implements Runnable {
     }
 }
 
+/**
+ * 在运行run方法前，通过构造方法启动了一个线程并占用了这个对象的锁，则run方法在调用f()时进入锁等待阻塞
+ */
 class SynchronizedBlocked implements Runnable {
 
+    /**
+     * 永远都不返回，即永远都占用锁
+     */
     public synchronized void f() {
         while (true) {
             Thread.yield();
@@ -81,14 +87,19 @@ class SynchronizedBlocked implements Runnable {
     }
 }
 
+/**
+ * Thread类的interrupt()方法可以中断对sleep()造成的阻塞，但是无法中断等待I/O的阻塞以及锁等待的阻塞。
+ */
 class Interrupting {
     private static ExecutorService exec =
             Executors.newCachedThreadPool();
 
     static void test(Runnable r) throws InterruptedException {
         Future<?> f = exec.submit(r);
+        //主线程休眠100毫秒，注意这里是毫秒
         TimeUnit.MILLISECONDS.sleep(100);
         System.out.println("Interrupting " + r.getClass().getName());
+        //中断单个线程
         f.cancel(true);
         System.out.println("Interrupt sent to " + r.getClass().getName());
     }
