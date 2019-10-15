@@ -9,7 +9,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author zhaojiatao
  * @date 2019-09-18
- * notifyAll必须在同步方法中被调用。当notifyAll因某个特定锁而被调用的时候，只有等待这个锁的任务才会被唤醒
+ *
+ * wait()、notify()、notifyAll()必须在同步方法中被调用。
+ * 当notifyAll因某个特定锁而被调用的时候，只有等待这个锁的任务才会被唤醒
  */
 public class Blocker {
 
@@ -128,15 +130,17 @@ class NotifyVsNotifyAll{
     public static void main(String[] args) throws InterruptedException {
         ExecutorService exec= Executors.newCachedThreadPool();
         for (int i=0;i<5;i++){
-            //5个Task类型的线程，先后抢占静态对象Task.blocker的锁，并进入等待。只有这个静态对象blocker的锁对应的notifyall时这五个挂起的线程才会继续
+            //5个Task类型的线程，先后抢占静态对象Task.blocker的锁，并进入wait等待并释放锁，然后下一个线程进入等待，再释放锁，直到5个线程都先后得到了锁，并都进入了wait阻塞中
+            //只有这个静态对象blocker的锁对应的notifyall()时这五个挂起的线程才会继续
             exec.execute(new Task());
         }
         //Task2类型的线程抢占静态对象Task2.blocker的锁，并进入等待
         exec.execute(new Task2());
+
         Timer timer=new Timer();
 
         //开启一个任务，每隔4/10秒执行一次run()方法
-        //可以看到，即使村咋爱Task2.blocker上阻塞的Task2对下昂，也没有任何在Task.blocker上的notify或notifyAll调用会导致Task2对象被唤醒。
+        //可以看到，即使存在Task2.blocker上阻塞的Task2对象，也没有任何在Task.blocker上的notify或notifyAll调用会导致Task2对象被唤醒。
         timer.scheduleAtFixedRate(new TimerTask() {
             //是否执行notify方法，第一次默认是
             boolean prod=true;
