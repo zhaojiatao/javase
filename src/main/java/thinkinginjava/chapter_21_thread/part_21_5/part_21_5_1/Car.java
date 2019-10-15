@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  *    wait()和notifyAll()必须在同步方法中使用。
  *    在调用wait的时候，一般都会在外面用while来包裹。
  *    wait方法会让线程挂起，也是一种阻塞。所以在调用wait前，如果执行了shundownnow方法，再执行wait的话，就会抛出中断异常。
+ * 2、因为需要操作锁，所以只能在同步控制方法或者同步控制块中调用wait()、notify()、notifyAll()，
+ * 如果在非同步控制方法里调用这些方法，程序能通过编译，但是运行的时候，将得到IllegalMonitorStateException异常
  */
 public class Car {
 
