@@ -1,4 +1,6 @@
-package thinkinginjava.chapter_21_thread.part_21_7;//: concurrency/DelayQueueDemo.java
+package thinkinginjava.chapter_21_thread.part_21_7;
+
+//: concurrency/DelayQueueDemo.java
 
 import java.util.concurrent.*;
 import java.util.*;
@@ -10,22 +12,36 @@ class DelayedTask implements Runnable, Delayed {
     private final int id = counter++;
     private final int delta;
     private final long trigger;
+
+    /**
+     * sequence确保了任务被创建的顺序
+     */
     protected static List<DelayedTask> sequence =
             new ArrayList<>();
 
     public DelayedTask(int delayInMilliseconds) {
         delta = delayInMilliseconds;
-        trigger = System.nanoTime() +
-                NANOSECONDS.convert(delta, MILLISECONDS);
+        //任务初始化时的系统时间
+        trigger = System.nanoTime() +NANOSECONDS.convert(delta, MILLISECONDS);
         sequence.add(this);
     }
 
+    /**
+     * 用来告知延迟时间有多长
+     *
+     * @param unit
+     * @return
+     */
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(
-                trigger - System.nanoTime(), NANOSECONDS);
+        return unit.convert(trigger - System.nanoTime(), NANOSECONDS);
     }
 
+    /**
+     * 按照延迟时间排序
+     * @param arg
+     * @return
+     */
     @Override
     public int compareTo(Delayed arg) {
         DelayedTask that = (DelayedTask) arg;
@@ -67,6 +83,9 @@ class DelayedTask implements Runnable, Delayed {
     }
 }
 
+/**
+ * 自身就是一个任务，它有自己的线程，可以使用这个线程来运行从队列中获取到的所有任务
+ */
 class DelayedTaskConsumer implements Runnable {
     private DelayQueue<DelayedTask> q;
 
@@ -91,8 +110,7 @@ public class DelayQueueDemo {
     public static void main(String[] args) {
         Random rand = new Random(47);
         ExecutorService exec = Executors.newCachedThreadPool();
-        DelayQueue<DelayedTask> queue =
-                new DelayQueue<DelayedTask>();
+        DelayQueue<DelayedTask> queue = new DelayQueue<DelayedTask>();
         // Fill with tasks that have random delays:
         for (int i = 0; i < 20; i++) {
             queue.put(new DelayedTask(rand.nextInt(5000)));
