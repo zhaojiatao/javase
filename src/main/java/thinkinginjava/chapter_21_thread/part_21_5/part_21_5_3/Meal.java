@@ -101,7 +101,7 @@ class Chef implements Runnable{
 
                 System.out.println("Order up");
 
-                //注意此处厨师对notifyAll的调用必须现获取到服务员的锁，而服务员在调用wait的时候释放了这个锁，所以此处是可以得到的。
+                //注意此处厨师对notifyAll的调用必须先获取到服务员的锁，而服务员在调用wait的时候释放了这个锁，所以此处是可以得到的。
                 //可以保证两个试图在同一个对象上调用notifyAll的任务不会相互冲突
                 synchronized (restaurant.waitPerson){
                     restaurant.meal=new Meal(count);
@@ -119,9 +119,10 @@ class Chef implements Runnable{
  * 饭店有一个厨师和一个服务员
  * 服务员必须等待厨师准备好膳食
  * 当厨师准备好时，他会通知服务员，服务员上菜，然后返回继续等待。
+ *
  * 厨师代表生产者
  * 服务员代表消费者
- * 两个任务必须咋爱膳食被生产和消费时进行握手，而系统必须以有序的方式关闭。
+ * 两个任务必须在膳食被生产和消费时进行握手，而系统必须以有序的方式关闭。
  */
 class Restaurant{
 
