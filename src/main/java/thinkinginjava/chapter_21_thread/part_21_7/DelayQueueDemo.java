@@ -33,7 +33,7 @@ class DelayedTask implements Runnable, Delayed {
     private final long trigger;
 
     /**
-     * sequence确保了任务被创建的顺序
+     * sequence记录了任务被创建的顺序，在线程被中止时，会打印这个数组，用来和实际任务执行的顺序做比较
      */
     protected static List<DelayedTask> sequence = new ArrayList<>();
 

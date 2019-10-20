@@ -22,7 +22,7 @@ class PrioritizedTask implements Runnable, Comparable<PrioritizedTask> {
      */
     private final int priority;
     /**
-     * sequence确保了任务被创建的顺序
+     * sequence记录了任务被创建的顺序，在线程被中止时，会打印这个数组，用来和实际任务执行的顺序做比较
      */
     protected static List<PrioritizedTask> sequence = new ArrayList<>();
 
@@ -65,7 +65,7 @@ class PrioritizedTask implements Runnable, Comparable<PrioritizedTask> {
 
     /**
      * 静态内部类
-     * 构造方法中引用父类的构造方法，并设置优先级为-1
+     * 构造方法中引用父类的构造方法，并设置优先级为-1，即要确保它是队列中的最后一个对象
      */
     public static class EndSentinel extends PrioritizedTask {
         private ExecutorService exec;
