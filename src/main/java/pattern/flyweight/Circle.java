@@ -3,6 +3,7 @@ package pattern.flyweight;
 /**
  * @author zhaojiatao
  * @date 2019-10-23
+ * 创建实现接口的实体类。
  */
 public class Circle implements Shape {
     private String color;
