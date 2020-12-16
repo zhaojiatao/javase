@@ -1,5 +1,7 @@
 package thinkinginjava.chapter_3_object;
 
+import org.junit.Test;
+
 /**
  * @author zhaojiatao
  * @date 2018/7/19
@@ -59,5 +61,26 @@ public class equalsLearn {
 
     }
 
+
+
+    private String mytest(String s){
+        char[] chars = s.toCharArray();
+        StringBuilder s1=new StringBuilder();
+        StringBuilder s2=new StringBuilder();
+        for (char c:chars){
+            if('*'==c){
+                s1.append(c);
+            }else{
+                s2.append(c);
+            }
+        }
+        return s1.toString()+s2.toString();
+    }
+
+
+    @Test
+    public void myTest02(){
+        System.out.println(mytest("**c**a**ddd*ccc**ceee*"));
+    }
 
 }

@@ -10,6 +10,8 @@ public class Address implements Cloneable,Serializable {
 
     private String address;
 
+
+
     public Address(String address){
         this.address = address;
     }
@@ -32,4 +34,7 @@ public class Address implements Cloneable,Serializable {
         }
         return address;
     }
+
+
+
 }
