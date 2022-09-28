@@ -1,7 +1,5 @@
 package dahuashejimoshi.decorator;
 
-import lombok.Data;
-
 /**
  * 装饰抽象类
  * 继承了Component，从外部拓展Component类的功能，但对于Component来说，是无需知道Decorator的存在的。
